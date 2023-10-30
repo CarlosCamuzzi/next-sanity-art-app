@@ -13,7 +13,7 @@ import IconBox from "./icons/Box";
 
 export default function NavBar() {
   return (
-    <Navbar isBordered isBlurred={false}>
+    <Navbar isBordered isBlurred={true}>
       <NavbarBrand>
         <IconBox />
         <p className="font-bold text-inherit p-3">ArtsIA App</p>

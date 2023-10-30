@@ -8,7 +8,7 @@ export default function ArtCard({ ...props }) {
 
   function handlePressArtCard(id: string) {
     route.push("#");
-    alert('programar route.push("#");');
+    alert(props.index);
   }
 
   return (
