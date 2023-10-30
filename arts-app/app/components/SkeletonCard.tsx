@@ -4,8 +4,8 @@ import { Card, Skeleton } from "@nextui-org/react";
 
 export default function SkeletonCard() {
   return (
-    <Card className="space-y-5 p-4" radius="lg">
-      <div className="space-y-3">
+    <Card className="space-y-5 p-4" radius="lg" shadow="sm">
+      <div className="flex flex-col items-center space-y-3">
         <Skeleton className="w-4/5 rounded-lg">
           <div className="h-3 w-4/5 rounded-lg bg-default-200"></div>
         </Skeleton>

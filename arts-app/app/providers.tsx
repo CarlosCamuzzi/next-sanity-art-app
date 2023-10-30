@@ -1,9 +1,9 @@
 // app/providers.tsx
 "use client";
 
-import ArtContextProvider from "@/context/Art/ArtContext";
 import { NextUIProvider } from "@nextui-org/react";
 import { ThemeProvider as NextThemesProvider } from "next-themes";
+import ArtContextProvider from "@/context/Art/ArtContext";
 
 export function Providers({ children }: { children: React.ReactNode }) {
   return (

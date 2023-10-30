@@ -5,8 +5,10 @@ import React, { useEffect, useState } from "react";
 import SkeletonCard from "@/app/components/SkeletonCard";
 import ArtCard from "@/app/components/ArtCard";
 import getArts from "@/database/getArts";
+
 import GridArt from "@/app/components/GridArt";
 import PaginationArt from "@/app/components/PaginationArt";
+import Container from "@/app/components/Container";
 
 export default function ArtPage() {
   const [loading, setLoading] = useState(true);
@@ -24,20 +26,23 @@ export default function ArtPage() {
 
       return data;
     };
+
     fetchData();
   }, [setArt]);
 
   if (loading) {
     return (
-      <GridArt>
-        {skeleton.map((index) => (
-          <SkeletonCard key={index} />
-        ))}
-      </GridArt>
+      <Container>
+        <GridArt>
+          {skeleton.map((index) => (
+            <SkeletonCard key={index} />
+          ))}
+        </GridArt>
+      </Container>
     );
   }
   return (
-    <>
+    <Container>
       <GridArt>
         {art?.map((data, index) => (
           <ArtCard key={data._id} data={data} index={index} />
@@ -46,6 +51,6 @@ export default function ArtPage() {
       {/* <div className="flex justify-center">
         <PaginationArt size={art?.length} />
       </div> */}
-    </>
+    </Container>
   );
 }
