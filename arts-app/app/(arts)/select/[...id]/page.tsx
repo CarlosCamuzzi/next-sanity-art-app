@@ -1,19 +1,23 @@
 // app/components/select/[...id]/page.tsx
 "use client";
-import { usePathname } from "next/navigation";
+
 import { useContext, useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+import { Button, Divider } from "@nextui-org/react";
+
+import getArtsById from "@/database/arts/getArtsById";
 import { ArtContext } from "@/context/Art/ArtContext";
-import getArtsById from "@/database/getArtsById";
+
 import Container from "@/app/components/Container";
 import SpinnetArt from "@/app/components/SpinnerArt";
 import SelectArt from "@/app/components/SelectArt";
 import ArrowLeft from "@/app/components/icons/ArrowLeft";
-import { Button } from "@nextui-org/react";
+import ComentaryBox from "@/app/components/ComentaryBox";
 
 export default function Select() {
   const path = usePathname();
   const router = useRouter();
+
   const { artItems, setArtItems } = useContext(ArtContext);
   const [loading, setLoading] = useState(true);
 
@@ -41,7 +45,9 @@ export default function Select() {
   if (loading) {
     return (
       <Container>
-        <SpinnetArt />
+        <div className="min-h-screen flex items-center justify-center">
+          <SpinnetArt />
+        </div>
       </Container>
     );
   }
@@ -57,6 +63,8 @@ export default function Select() {
           image={artItems[0].image}
           description={artItems[0].description}
         />
+        <Divider />
+        <ComentaryBox />
       </Container>
     </>
   );

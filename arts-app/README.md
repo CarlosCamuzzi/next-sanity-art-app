@@ -58,3 +58,8 @@ https://www.sanity.io/docs/image-url
 Portabletext Sanity React - nao usado
 npm install --save @portabletext/react
 https://www.sanity.io/docs/portable-text-to-react#installation
+
+npm i nodemon
+npm i fastify
+npm i fastify-plugin @fastify/mongodb
+mongoose

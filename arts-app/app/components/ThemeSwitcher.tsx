@@ -1,8 +1,10 @@
 // app/components/ThemeSwitcher.tsx
 "use client";
+
 import { useEffect, useState } from "react";
 import { useTheme } from "next-themes";
 import { Button } from "@nextui-org/react";
+
 import IconDarkMode from "./icons/DarkMode";
 import IconLigthMode from "./icons/LightMode";
 

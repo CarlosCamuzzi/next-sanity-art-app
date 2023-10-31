@@ -2,12 +2,13 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
+
+import getArts from "@/database/arts/getArts";
+
 import SkeletonCard from "@/app/components/SkeletonCard";
 import ArtCard from "@/app/components/ArtCard";
-import getArts from "@/database/getArts";
-
 import GridArt from "@/app/components/GridArt";
-import PaginationArt from "@/app/components/PaginationArt";
+//import PaginationArt from "@/app/components/PaginationArt";
 import Container from "@/app/components/Container";
 
 export default function ArtPage() {
