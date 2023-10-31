@@ -8,7 +8,7 @@ export default {
       name: 'title',
       type: 'string',
       validation: (Rule: any) =>
-        Rule.required().min(2).max(30).warning('O título deve conter de 2 a 30 caracteres'),
+        Rule.required().min(2).max(48).warning('O título deve conter de 2 a 48 caracteres'),
     },
     {
       title: 'Descrição da Arte',
@@ -16,7 +16,7 @@ export default {
       type: 'array',
       of: [{type: 'block'}],
       validation: (Rule: any) => {
-        Rule.required().min(10).max(50).warning('A descrição deve conter de 10 a 50 caracteres')
+        Rule.required().min(2).max(100).warning('A descrição deve conter de 10 a 100 caracteres')
       },
     },
     {
@@ -43,18 +43,18 @@ export default {
         Rule.required()
       },
     },
-    {
-      title: 'Data da Criação',
-      name: 'date',
-      type: 'date',
-      options: {
-        dateFormat: 'DD-MM-YYYY',
-        calendarTodayLabel: 'Today',
-      },
-      validation: (Rule: any) => {
-        Rule.required()
-      },
-    },
+    // {
+    //   title: 'Data da Criação',
+    //   name: 'date',
+    //   type: 'date',
+    //   options: {
+    //     dateFormat: 'DD-MM-YYYY',
+    //     calendarTodayLabel: 'Today',
+    //   },
+    //   validation: (Rule: any) => {
+    //     Rule.required()
+    //   },
+    // },
     {
       name: 'slug',
       title: 'Slug',
