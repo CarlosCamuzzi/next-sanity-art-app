@@ -2,19 +2,26 @@
 import { baseURL } from "../baseURL/baseURLComments";
 
 const postComment = async (param: any) => {
-  console.log(param);
+  try {
+    const response = await fetch(`${baseURL}/comments`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        //Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(param),
+    });
 
-  return await fetch(`${baseURL}/comments`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      //Authorization: `Bearer ${token}`,
-    },
-    body: JSON.stringify(param),
-  })
-    .then((response) => response.json())
-    .then((json) => console.log(json))
-    .catch((e) => console.error(e));
+    if (!response.ok) {
+      throw new Error("Não foi possível enviar seu comentário.");
+    }
+
+    const json = await response.json();
+
+    return json;
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 export default postComment;

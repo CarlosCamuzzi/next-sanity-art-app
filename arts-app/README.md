@@ -63,3 +63,5 @@ npm i nodemon
 npm i fastify
 npm i fastify-plugin @fastify/mongodb
 mongoose
+
+npm i nexth-auth

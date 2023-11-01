@@ -8,8 +8,10 @@ import {
   Link,
   Button,
 } from "@nextui-org/react";
+
 import { ThemeSwitcher } from "./ThemeSwitcher";
 import IconBox from "./icons/Box";
+import LoginButton from "./LoginButton";
 
 export default function NavBar() {
   return (
@@ -35,9 +37,7 @@ export default function NavBar() {
           <ThemeSwitcher />
         </NavbarItem>
         <NavbarItem>
-          <Button as={Link} color="primary" href="#" variant="flat">
-            Sign Up
-          </Button>
+          <LoginButton />
         </NavbarItem>
       </NavbarContent>
     </Navbar>
