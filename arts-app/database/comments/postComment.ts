@@ -1,12 +1,8 @@
-import { baseURL } from "./baseURL/baseURLComments";
+// database/comments/postComment.ts
+import { baseURL } from "../baseURL/baseURLComments";
 
-// database/comments/postComment
 const postComment = async (param: any) => {
-  console.log(typeof param);
-  // console.log(`${baseURL}/comments`);
-
-  // const xTeste = JSON.stringify(param);
-  // console.log(xTeste);
+  console.log(param);
 
   return await fetch(`${baseURL}/comments`, {
     method: "POST",

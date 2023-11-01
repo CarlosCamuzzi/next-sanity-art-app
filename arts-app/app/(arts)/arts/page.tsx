@@ -15,8 +15,6 @@ export default function ArtPage() {
   const [loading, setLoading] = useState(true);
   const [art, setArt] = useState<Art[] | undefined>();
 
-  const skeleton = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
-
   useEffect(() => {
     const fetchData = async () => {
       const data = (await getArts()) as Art[];
@@ -31,23 +29,16 @@ export default function ArtPage() {
     fetchData();
   }, [setArt]);
 
-  if (loading) {
-    return (
-      <Container>
-        <GridArt>
-          {skeleton.map((index) => (
-            <SkeletonCard key={index} />
-          ))}
-        </GridArt>
-      </Container>
-    );
-  }
   return (
     <Container>
       <GridArt>
-        {art?.map((data, index) => (
-          <ArtCard key={data._id} data={data} index={index} />
-        ))}
+        {loading ? (
+          <SkeletonCard />
+        ) : (
+          art?.map((data, index) => (
+            <ArtCard key={data._id} data={data} index={index} />
+          ))
+        )}
       </GridArt>
       {/* <div className="flex justify-center">
         <PaginationArt size={art?.length} />
