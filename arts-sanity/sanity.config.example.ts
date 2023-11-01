@@ -7,8 +7,8 @@ export default defineConfig({
   name: 'default',
   title: 'arts-sanity',
 
-  projectId: 'fq6revsz',
-  dataset: 'arts',
+  projectId: 'YOUR_PROJECT_ID',
+  dataset: 'YOUR_PROJECT_DATASET',
 
   plugins: [deskTool(), visionTool()],
 
