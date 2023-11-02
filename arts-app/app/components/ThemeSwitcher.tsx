@@ -26,6 +26,9 @@ export function ThemeSwitcher() {
     <div>
       {theme == "dark" ? (
         <Button
+          className={`${
+            theme == "dark" ? "hover:bg-gray-500" : "hover:bg-gray-200"
+          }`}
           isIconOnly
           color="default"
           aria-label="Dark Mode"
@@ -35,6 +38,9 @@ export function ThemeSwitcher() {
         </Button>
       ) : (
         <Button
+          className={`${
+            theme == "dark" ? "hover:bg-gray-500" : "hover:bg-gray-200"
+          }`}
           isIconOnly
           color="default"
           aria-label="Ligth Mode"

@@ -1,9 +1,9 @@
 // database/comments/getComment.ts
 import { baseURL } from "../baseURL/baseURLComments";
 
-const getComment = async () => {
+const getComment = async (artId: string) => {
   try {
-    const response = await fetch(`${baseURL}/comments`, {
+    const response = await fetch(`${baseURL}/comments/${artId}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

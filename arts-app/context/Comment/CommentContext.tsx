@@ -12,6 +12,10 @@ type CommentContextProps = {
 
 type CommentItemType = {
   _id: string;
+  userName: string;
+  userEmail: string;
+  userPhoto: string;
+  artId: string;
   comment: string;
   date: string;
 };

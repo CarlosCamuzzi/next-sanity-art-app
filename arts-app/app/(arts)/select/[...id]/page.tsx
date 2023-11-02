@@ -13,10 +13,13 @@ import Container from "@/app/components/Container";
 import SpinnetArt from "@/app/components/SpinnerArt";
 import SelectArt from "@/app/components/SelectArt";
 import ComentaryBox from "@/app/components/CommentaryBox";
+import { useTheme } from "next-themes";
 
 export default function Select() {
   const path = usePathname();
   const router = useRouter();
+  const { theme } = useTheme();
+
   const { artItems, setArtItems } = useContext(ArtContext);
   const [loading, setLoading] = useState(true);
 
@@ -24,13 +27,19 @@ export default function Select() {
     router.back();
   }
 
+  function handleGetArtIdInPathName() {
+    const index = path.lastIndexOf("/");
+    const artId = path.slice(index + 1);
+
+    return artId;
+  }
+
   // Get Arts
   useEffect(() => {
-    const index = path.lastIndexOf("/");
-    const pathId = path.slice(index + 1);
+    const artId = handleGetArtIdInPathName();
 
     const fetchData = async () => {
-      const data = (await getArtsById(pathId)) as Art[];
+      const data = (await getArtsById(artId)) as Art[];
 
       if (data) setLoading(false);
 
@@ -55,7 +64,14 @@ export default function Select() {
   return (
     <>
       <Container>
-        <Button isIconOnly radius="full" onPress={handleClickArrowLeft}>
+        <Button
+          className={`${
+            theme == "dark" ? "hover:bg-gray-500" : "hover:bg-gray-200"
+          }`}
+          isIconOnly
+          radius="full"
+          onPress={handleClickArrowLeft}
+        >
           <ArrowLeft />
         </Button>
         <SelectArt
@@ -65,7 +81,7 @@ export default function Select() {
         />
         <Divider />
         <div className="mt-8">
-          <div >
+          <div>
             <ComentaryBox />
           </div>
         </div>

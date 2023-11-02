@@ -7,8 +7,8 @@ import {
   CardHeader,
   Divider,
   Textarea,
-  Image,
   Avatar,
+  Link,
 } from "@nextui-org/react";
 
 import getComment from "@/database/comments/getComment";
@@ -16,14 +16,21 @@ import postComment from "@/database/comments/postComment";
 
 import { CommentContext } from "@/context/Comment/CommentContext";
 import SpinnerForButton from "./SpinnerForButton";
+import SpinnetArt from "./SpinnerArt";
+import { signIn, useSession } from "next-auth/react";
+import { usePathname } from "next/navigation";
 
 export default function CommentaryBox() {
+  const { data: session } = useSession();
+  const path = usePathname();
+
   const { comment, setComment } = useContext(CommentContext);
 
   const [textAreaComment, setTextAreaComment] = useState("");
   const [refreshComments, setRefreshComments] = useState(false);
   const [clearTextAreaComment, setClearTextAreaComment] = useState(false);
   const [waitButton, setWaitButton] = useState(false);
+  const [loadingCommentList, setLoadingCommentList] = useState(true);
 
   function handleFormatDate() {
     const date = new Date();
@@ -45,10 +52,22 @@ export default function CommentaryBox() {
     return formattedDate;
   }
 
+  function handleGetArtIdInPathName() {
+    const index = path.lastIndexOf("/");
+    const artId = path.slice(index + 1);
+
+    return artId;
+  }
+
   function handleSendTextComment() {
     const formattedDate = handleFormatDate();
+    const artId = handleGetArtIdInPathName();
 
     const commentText = {
+      userName: session?.user?.name,
+      userEmail: session?.user?.email,
+      userPhoto: session?.user?.image,
+      artId: artId,
       comment: textAreaComment,
       date: formattedDate,
     };
@@ -63,10 +82,14 @@ export default function CommentaryBox() {
   }
 
   useEffect(() => {
+    const artId = handleGetArtIdInPathName();
+
     const fetchData = async () => {
-      const data = await getComment();
+      const data = await getComment(artId);
 
       setComment(data);
+
+      if (data) setLoadingCommentList(false);
 
       // Apaga o texto do comentário
       if (clearTextAreaComment === true) {
@@ -82,11 +105,38 @@ export default function CommentaryBox() {
     fetchData();
   }, [setComment, refreshComments]);
 
+  if (loadingCommentList) {
+    <>
+      <div className="flex flex-col max-w-sm mx-auto mt-8">
+        <SpinnetArt />
+      </div>
+    </>;
+  }
+
   return (
     <>
       <div className="flex flex-col max-w-xs mx-auto">
+        {/* Somente se usuário não logado */}
+        {!session ? (
+          <>
+            <span className="pb-5 text-sm font-bold">
+              <p>Você precisa estar logado para comentar.</p>
+              <a
+                onClick={() => signIn("google")}
+                className="pt-1 text-sm text-blue-500 cursor-pointer hover:text-blue-300"
+              >
+                Clique Aqui
+              </a>
+            </span>
+          </>
+        ) : (
+          <></>
+        )}
+
+        {/* Área de comentário */}
         <Textarea
-          maxLength={299}
+          isDisabled={!session}
+          maxLength={300}
           label="Comentários"
           labelPlacement="outside"
           variant="faded"
@@ -96,13 +146,19 @@ export default function CommentaryBox() {
             setTextAreaComment(e.target.value);
           }}
         />
+
+        {/* Contagem de caracteres */}
         <div className="flex justify-between pt-2 px-2">
-          <p className="text-tiny">
-            {textAreaComment != undefined && textAreaComment.length + 1}/300
+          <p
+            className={`text-tiny ${!session ? "text-gray-500" : "text-white"}`}
+          >
+            {textAreaComment != undefined && textAreaComment.length}/300
           </p>
+
           <div className="flex">
             <div className="px-5">
               <Button
+                isDisabled={!session}
                 color="danger"
                 variant="ghost"
                 size="sm"
@@ -124,28 +180,45 @@ export default function CommentaryBox() {
           </div>
         </div>
       </div>
+
+      <div>
+        <Divider className="my-8" />
+      </div>
+
+      {/* Todos comentários */}
       <div className="flex flex-col max-w-sm mx-auto mt-8">
-        <Divider className="mb-8" />
-        {comment?.length > 0 ? (
-          comment.map((item, index: number) => (
-            <Card key={index} className="my-2">
-              <CardHeader className="flex gap-3">
-                <Avatar isBordered color="default" size="sm" src={""} />
-                <div className="flex flex-row flex-wrap">
-                  <p className="text-small mr-20">Nome Usuário</p>
-                  <p className="text-tiny text-default-500">{item.date}</p>
-                </div>
-              </CardHeader>
-              <Divider />
-              <CardBody>
-                <p className="text-sm flex flex-row flex-wrap">
-                  {item.comment}
-                </p>
-              </CardBody>
-            </Card>
-          ))
+        {!loadingCommentList ? (
+          <>
+            {comment?.length > 0 ? (
+              comment.map((item, index: number) => (
+                <Card key={index} className="my-2">
+                  <CardHeader className="flex gap-3">
+                    <Avatar
+                      isBordered
+                      //color={session ? "success" : "default"}
+                      color={"default"}
+                      size="sm"
+                      src={item.userPhoto}
+                    />
+                    <div className="flex flex-row flex-wrap">
+                      <p className="text-small mr-20">{item.userName}</p>
+                      <p className="text-tiny text-default-500">{item.date}</p>
+                    </div>
+                  </CardHeader>
+                  <Divider />
+                  <CardBody>
+                    <p className="text-sm flex flex-row flex-wrap">
+                      {item.comment}
+                    </p>
+                  </CardBody>
+                </Card>
+              ))
+            ) : (
+              <></>
+            )}
+          </>
         ) : (
-          <></>
+          <SpinnetArt />
         )}
       </div>
     </>

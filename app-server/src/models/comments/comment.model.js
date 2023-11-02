@@ -3,21 +3,30 @@ const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
 const commentSchema = new Schema({
-  // userId: {
-  //   type: String,
-  //   required: true,
-  // },
-  // artId: {
-  //   type: String,
-  //   required: true,
-  // },
+  userName: {
+    type: String,
+    required: true,
+  },
+  userEmail: {
+    type: String,
+    required: true,
+  },
+  userPhoto: {
+    type: String,
+    required: true,
+  },
+  artId: {
+    type: String,
+    required: true,
+  },
   comment: {
     type: String,
     required: true,
   },
-  // date: {
-  //   type: Date,
-  // },
+  date: {
+    type: String,
+    required: true,
+  },
 });
 
 const CommentModel = mongoose.model("Comment", commentSchema);
