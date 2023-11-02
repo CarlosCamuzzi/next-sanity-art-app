@@ -18,8 +18,7 @@ async function routes(fastify, options) {
   fastify.get("/comments/:id", { CommentModel }, async (request, reply) => {
     try {
       const { id } = request.params;
-      console.log("--------> " + id);
-      console.log("--------> " + typeof id);
+
       const comment = await CommentModel.find({
         artId: id,
       }).sort({ date: -1 });
@@ -32,18 +31,6 @@ async function routes(fastify, options) {
       console.log(error);
     }
   });
-
-  // fastify.get("/comments/:id", { CommentModel }, async (request, reply) => {
-  //   try {
-  //     const comment = await CommentModel.findById(request.params.id);
-
-  //     return comment === null
-  //       ? reply.code(404).send("Not Found")
-  //       : reply.code(200).send(comment);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // });
 }
 
 module.exports = routes;

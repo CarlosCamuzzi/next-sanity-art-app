@@ -8,17 +8,18 @@ import {
   Divider,
   Textarea,
   Avatar,
-  Link,
 } from "@nextui-org/react";
+
+import { signIn, useSession } from "next-auth/react";
+import { usePathname } from "next/navigation";
 
 import getComment from "@/database/comments/getComment";
 import postComment from "@/database/comments/postComment";
 
 import { CommentContext } from "@/context/Comment/CommentContext";
+
 import SpinnerForButton from "./SpinnerForButton";
 import SpinnetArt from "./SpinnerArt";
-import { signIn, useSession } from "next-auth/react";
-import { usePathname } from "next/navigation";
 
 export default function CommentaryBox() {
   const { data: session } = useSession();
@@ -59,6 +60,7 @@ export default function CommentaryBox() {
     return artId;
   }
 
+  // Post
   function handleSendTextComment() {
     const formattedDate = handleFormatDate();
     const artId = handleGetArtIdInPathName();
@@ -123,7 +125,7 @@ export default function CommentaryBox() {
               <p>Você precisa estar logado para comentar.</p>
               <a
                 onClick={() => signIn("google")}
-                className="pt-1 text-sm text-blue-500 cursor-pointer hover:text-blue-300"
+                className="pt-1 text-sm text-blue-500 cursor-pointer hover:text-blue-400"
               >
                 Clique Aqui
               </a>
@@ -155,6 +157,7 @@ export default function CommentaryBox() {
             {textAreaComment != undefined && textAreaComment.length}/300
           </p>
 
+          {/* Botões Enviar e Limpar   */}
           <div className="flex">
             <div className="px-5">
               <Button
@@ -172,6 +175,7 @@ export default function CommentaryBox() {
                 isDisabled={textAreaComment === "" ? true : false}
                 color="primary"
                 size="sm"
+                className="hover:bg-blue-500"
                 onPress={handleSendTextComment}
               >
                 {!waitButton ? "Enviar" : <SpinnerForButton />}

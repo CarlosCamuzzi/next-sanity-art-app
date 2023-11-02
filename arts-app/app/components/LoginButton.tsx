@@ -17,7 +17,11 @@ export default function LoginButton() {
   return (
     <>
       {!session ? (
-        <Button color="primary" variant="flat" onPress={() => signIn("google")}>
+        <Button
+          color="primary"
+          className="hover:bg-blue-500"
+          onPress={() => signIn("google")}
+        >
           Login
         </Button>
       ) : (
