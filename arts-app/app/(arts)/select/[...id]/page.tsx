@@ -4,6 +4,7 @@
 import { useContext, useEffect, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { Button, Divider } from "@nextui-org/react";
+import { useTheme } from "next-themes";
 
 import { ArtContext } from "@/context/Art/ArtContext";
 import getArtsById from "@/database/arts/getArtsById";
@@ -13,7 +14,6 @@ import Container from "@/app/components/Container";
 import SpinnetArt from "@/app/components/SpinnerArt";
 import SelectArt from "@/app/components/SelectArt";
 import ComentaryBox from "@/app/components/CommentaryBox";
-import { useTheme } from "next-themes";
 
 export default function Select() {
   const path = usePathname();

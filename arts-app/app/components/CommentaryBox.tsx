@@ -128,10 +128,14 @@ export default function CommentaryBox() {
   return (
     <>
       <div className="flex flex-col max-w-xs mx-auto">
+        <p className="place-self-center text-sm pb-2">
+          Deixa seu comentário e avaliação
+        </p>
+
         {/* Somente se usuário não logado */}
         {!session ? (
           <>
-            <span className="pb-5 text-sm font-bold">
+            <span className="flex flex-col items-center mb-8 mt-2 text-sm font-bold">
               <p>Você precisa estar logado para comentar.</p>
               <a
                 onClick={() => signIn("google")}
@@ -140,24 +144,27 @@ export default function CommentaryBox() {
                 Clique Aqui
               </a>
             </span>
+            <Divider className="mb-8" />
           </>
         ) : (
           <></>
         )}
 
         {/* Área de comentário */}
-        <Textarea
-          isDisabled={!session}
-          maxLength={300}
-          label="Comentários"
-          labelPlacement="outside"
-          variant="faded"
-          placeholder="Compartilhe a sua opinião"
-          value={textAreaComment}
-          onChange={(e) => {
-            setTextAreaComment(e.target.value);
-          }}
-        />
+        <>
+          <Textarea
+            isDisabled={!session}
+            maxLength={300}
+            label=""
+            labelPlacement="outside"
+            variant="faded"
+            placeholder="Compartilhe a sua opinião"
+            value={textAreaComment}
+            onChange={(e) => {
+              setTextAreaComment(e.target.value);
+            }}
+          />
+        </>
 
         {/* Contagem de caracteres */}
         <div className="flex justify-between pt-2 px-2">
@@ -195,6 +202,7 @@ export default function CommentaryBox() {
         </div>
       </div>
 
+      {/* Divisão */}
       <div>
         <Divider className="my-8" />
       </div>

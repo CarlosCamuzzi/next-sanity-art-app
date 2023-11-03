@@ -1,21 +1,22 @@
-import React, { useContext, useEffect, useState } from "react";
-import IconStarEmpty from "./icons/StarEmpty";
-import IconStarFull from "./icons/StarFull";
+// app/components/Star.tsx
+import React, { useContext } from "react";
+
 import { StarContext } from "@/context/Star/StarContext";
 
+import IconStarEmpty from "./icons/StarEmpty";
+import IconStarFull from "./icons/StarFull";
+
 const Star = () => {
-  const totalStars = 5;
   const { star, setStar } = useContext(StarContext);
   const starValue = star.star;
+  const totalStars = 5;
 
   // Atualiza a quantidade de estrelas vazias/preenchidas
   function handleStarsClick(index: number): void {
     if (index == 0 && starValue == 1) {
       setStar({ star: 0 });
-      console.log(index);
     } else {
       setStar({ star: index + 1 });
-      console.log(index);
     }
   }
 
