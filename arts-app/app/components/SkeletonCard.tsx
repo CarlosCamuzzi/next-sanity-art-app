@@ -3,11 +3,11 @@ import React from "react";
 import { Card, Skeleton } from "@nextui-org/react";
 
 export default function SkeletonCard() {
-  const skeleton = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
+  const skeleton = 12;
 
   return (
     <>
-      {skeleton.map((index) => (
+      {Array.from({ length: skeleton }).map((_, index: number) => (
         <Card key={index} className="space-y-5 p-4" radius="lg" shadow="sm">
           <div className="flex flex-col items-center space-y-3">
             <Skeleton className="w-4/5 rounded-lg">

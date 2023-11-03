@@ -7,6 +7,7 @@ import { SessionProvider } from "next-auth/react";
 
 import ArtContextProvider from "@/context/Art/ArtContext";
 import CommentContext from "@/context/Comment/CommentContext";
+import StarContext from "@/context/Star/StarContext";
 
 export function Providers({ children }: { children: React.ReactNode }) {
   return (
@@ -14,7 +15,9 @@ export function Providers({ children }: { children: React.ReactNode }) {
       <NextUIProvider>
         <NextThemesProvider attribute="class" defaultTheme="dark">
           <ArtContextProvider>
-            <CommentContext>{children}</CommentContext>
+            <CommentContext>
+              <StarContext>{children}</StarContext>
+            </CommentContext>
           </ArtContextProvider>
         </NextThemesProvider>
       </NextUIProvider>

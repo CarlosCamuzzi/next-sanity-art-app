@@ -22,7 +22,11 @@ async function routes(fastify, options) {
       const comment = await CommentModel.find({
         artId: id,
       }).sort({ date: -1 });
-      console.log(comment);
+      //console.log(comment);
+
+      // const com = comment;
+      // console.log(com[0].userName);
+
 
       return comment === null
         ? reply.code(404).send("Not Found")

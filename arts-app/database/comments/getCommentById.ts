@@ -1,25 +1,25 @@
-// database/comments/getCommentById.ts
-import { baseURL } from "../baseURL/baseURLComments";
+// // database/comments/getCommentById.ts
+// import { baseURL } from "../baseURL/baseURLComments";
 
-const getComment = async (id: string) => {
-  try {
-    const response = await fetch(`${baseURL}/comments/${id}`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+// const getComment = async (id: string) => {
+//   try {
+//     const response = await fetch(`${baseURL}/comments/${id}`, {
+//       method: "GET",
+//       headers: {
+//         "Content-Type": "application/json",
+//       },
+//     });
 
-    if (!response.ok) {
-      throw new Error("Não foi possível obter os dados dos comentários.");
-    }
+//     if (!response.ok) {
+//       throw new Error("Não foi possível obter os dados dos comentários.");
+//     }
 
-    const json = await response.json();
+//     const json = await response.json();
 
-    return json;
-  } catch (error) {
-    console.error(error);
-  }
-};
+//     return json;
+//   } catch (error) {
+//     console.error(error);
+//   }
+// };
 
-export default getComment;
+// export default getComment;

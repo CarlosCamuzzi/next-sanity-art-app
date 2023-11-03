@@ -20,18 +20,24 @@ import { CommentContext } from "@/context/Comment/CommentContext";
 
 import SpinnerForButton from "./SpinnerForButton";
 import SpinnetArt from "./SpinnerArt";
+import { setTimeout } from "timers/promises";
+import { StarContext } from "@/context/Star/StarContext";
+import IconStarEmpty from "./icons/StarEmpty";
+import IconStarFull from "./icons/StarFull";
 
 export default function CommentaryBox() {
   const { data: session } = useSession();
   const path = usePathname();
 
   const { comment, setComment } = useContext(CommentContext);
+  const { star } = useContext(StarContext);
 
   const [textAreaComment, setTextAreaComment] = useState("");
   const [refreshComments, setRefreshComments] = useState(false);
   const [clearTextAreaComment, setClearTextAreaComment] = useState(false);
   const [waitButton, setWaitButton] = useState(false);
   const [loadingCommentList, setLoadingCommentList] = useState(true);
+  const [starFill, setStarFill] = useState<number>(0);
 
   function handleFormatDate() {
     const date = new Date();
@@ -72,7 +78,10 @@ export default function CommentaryBox() {
       artId: artId,
       comment: textAreaComment,
       date: formattedDate,
+      avaliation: star.star,
     };
+
+    console.log(commentText);
 
     postComment(commentText)
       .then((newComment) => {
@@ -107,6 +116,7 @@ export default function CommentaryBox() {
     fetchData();
   }, [setComment, refreshComments]);
 
+  // Spínner enquanto carrega
   if (loadingCommentList) {
     <>
       <div className="flex flex-col max-w-sm mx-auto mt-8">
@@ -208,6 +218,17 @@ export default function CommentaryBox() {
                       <p className="text-small mr-20">{item.userName}</p>
                       <p className="text-tiny text-default-500">{item.date}</p>
                     </div>
+
+                    <div className="flex flex-col">
+                      <p className="text-tiny text-default-500">Avaliação</p>
+                      <div className="flex">
+                        {Array.from({ length: item.avaliation }).map(
+                          (_, index) => (
+                            <IconStarFull key={index} className="w-3" />
+                          )
+                        )}
+                      </div>
+                    </div>
                   </CardHeader>
                   <Divider />
                   <CardBody>
@@ -222,6 +243,7 @@ export default function CommentaryBox() {
             )}
           </>
         ) : (
+          // Colocar um set time out aqui
           <SpinnetArt />
         )}
       </div>

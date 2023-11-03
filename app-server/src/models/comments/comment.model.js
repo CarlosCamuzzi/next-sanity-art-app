@@ -27,6 +27,10 @@ const commentSchema = new Schema({
     type: String,
     required: true,
   },
+  avaliation: {
+    type: Number,
+    default: 0,
+  },
 });
 
 const CommentModel = mongoose.model("Comment", commentSchema);

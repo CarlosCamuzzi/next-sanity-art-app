@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { Divider, Image } from "@nextui-org/react";
+
+import Star from "./Star";
 
 export default function SelectArt({ ...props }) {
   return (
@@ -12,12 +14,20 @@ export default function SelectArt({ ...props }) {
           alt={props.title}
           src={props.image}
         />
+        <div className="mt-5 flex justify-center">
+          <Star />
+        </div>
       </div>
+
       <div className="flex flex-col ml-5 mt-3">
         <div>
           <h2 className="text-lg text font-bold">{props.title}</h2>
         </div>
-        <Divider className="my-4" />
+
+        <div>
+          <Divider className="my-4" />
+        </div>
+
         <div>
           <p className="text-small">{props.description}</p>
         </div>

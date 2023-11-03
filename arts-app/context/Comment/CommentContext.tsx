@@ -18,6 +18,7 @@ type CommentItemType = {
   artId: string;
   comment: string;
   date: string;
+  avaliation: number;
 };
 
 type CommentContextType = {
